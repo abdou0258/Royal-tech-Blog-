@@ -1,0 +1,141 @@
+
+
+
+
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;1,400&family=Bebas+Neue&display=swap');
+
+
+
+:root{
+    --prim-color:#3652AD;
+    --second-color:#FE7A36;
+    --accent-color:#280274;
+    --bg-color:#E9F6FF;
+    --text-color:#070B18;
+    --h1:3.8rem;
+    --h2:3rem;
+    --h3:2.4rem;
+    --h4:1.9rem;
+    --h5:1.25rem;
+    --p:1rem;
+    
+}
+body{
+    overflow-x: hidden;
+}
+.App{
+    width:80%;
+    margin:0 auto;
+    
+    
+}
+h1{
+    font-size: var(--h1);
+    font-family: 'Bebas Neue', sans-serif;
+    text-align: center;
+    margin-top: 50px;
+    color:var(--prim-color) ;
+    text-shadow: 0px 2px 5px rgba(54, 82, 173, 0.6);
+    
+}
+h2{
+    font-size: var(--h2);
+    font-family: 'Bebas Neue', sans-serif;
+    
+    margin-top: 80px;
+    color:var(--prim-color) ;
+    text-shadow: 0px 2px 5px rgba(54, 82, 173, 0.6);
+}
+h2{
+    font-size: var(--h2);
+    font-family: 'Bebas Neue', sans-serif;
+    
+    margin-top: 80px;
+    color:var(--prim-color) ;
+}
+h3{
+    font-size: var(--h3);
+    font-family: 'Barlow Condensed', sans-serif;
+    
+    margin-top: 20px;
+    color:var(--text-color) ;
+}
+h4{
+    font-size: var(--h4);
+    font-family: 'Barlow Condensed', sans-serif;
+    
+    margin-top: 20px;
+    color:var(--text-color) ;
+}
+h5{
+    font-size: var(--h5);
+    font-family: 'Barlow Condensed', sans-serif;
+    
+    
+    margin-top: 20px;
+    color:var(--text-color) ;
+}
+p{
+    font-size: var(--p);
+    font-family: 'Barlow Condensed', sans-serif;
+    
+   
+    margin-top: 20px;
+    color:var(--text-color) ;
+}
+#latest h5{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 3; 
+    max-height: 3em; 
+  
+}
+#latest p{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 3; 
+    max-height: 3em; 
+  
+}
+#Card h3{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 3; 
+    max-height: 3em; 
+  
+}
+#CardFlex h5{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 4; 
+    max-height: 3em; 
+  
+}
+#CardFlex p{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 5; 
+    max-height: 3em; 
+  
+}
+#blogs h3{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 1; 
+    max-height: 3em; 
+
+}

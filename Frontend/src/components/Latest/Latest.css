@@ -1,0 +1,22 @@
+#latest p,
+h5 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 3; 
+  max-height: 3em;
+}
+
+.skeleton {
+  opacity: 0.7;
+  animation: skeleton-loading is linear infinite alternate;
+}
+@keyframes skeleton-loading {
+  0% {
+    background-color: hsl(200, 20%, 70%);
+  }
+  100% {
+    background-color: hsl(200, 20%, 95%);
+  }
+}

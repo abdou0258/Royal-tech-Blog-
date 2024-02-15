@@ -1,0 +1,13 @@
+.banner {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("../../assets/banner-bg.jpg");
+  background-size: cover;
+  background-position: center;
+}
+#footer h1 {
+  color: white;
+}
+#footer h5 {
+  color: white;
+}
+

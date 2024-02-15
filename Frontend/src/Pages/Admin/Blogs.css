@@ -1,0 +1,30 @@
+#blogs .edit{
+    background-color:var(--accent-color);
+    padding: 10px 30px;
+    color: white;
+    margin: 0 20px;
+    border-radius: 16px;
+}
+#blogs .delete{
+    background-color: #e24c4c;
+    padding: 10px 30px;
+    color: white;
+    margin: 0 20px;
+    border-radius: 16px;
+}
+#blogs h5{
+    margin-top: 0;
+    color: white;
+}
+#add-edit-blog h5{
+    margin-top: 0;
+    color: white;
+}
+.login-btn h5{
+    margin-top: 0;
+    color: white;
+}
+#blogs{
+    width:90%;
+    margin:auto;
+}

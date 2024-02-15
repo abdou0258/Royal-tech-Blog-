@@ -1,0 +1,21 @@
+@import "../../App.css";
+
+.modal{
+    background:url('../../assets/Polygon Luminary.svg');
+    background-size: cover;
+    color:var(--text-color);
+}
+.modal-input{
+    width:80%;
+    margin:30px auto;
+    display:block;
+    padding:5px 10px;
+    border-radius:5px;
+    
+
+}
+
+.modal button{
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: var(--h5);
+}

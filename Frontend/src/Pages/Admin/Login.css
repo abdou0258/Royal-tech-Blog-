@@ -1,0 +1,13 @@
+
+#login-form input{
+    padding: 5px 10px;
+    background-color: transparent;
+    border-bottom: 2px solid black;
+
+    outline: 0;
+}
+textarea{
+    border-bottom: 2px solid black;
+
+    outline: 0;
+}
