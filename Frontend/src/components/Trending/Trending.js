@@ -57,11 +57,16 @@ function Trending() {
       });
 
       const data = await response.json();
-      const trendingBlogs = data.blogs.sort(
-        (a, b) => b.pageViews - a.pageViews
-      );
+      if (data.length > 1) {
+        const trendingBlogs = data.sort((a, b) => b.pageViews - a.pageViews);
+        setTrendingData(trendingBlogs.slice(0, 4));
+      } else {
+        const trendingBlogs = data.blogs.sort(
+          (a, b) => b.pageViews - a.pageViews
+        );
+        setTrendingData(trendingBlogs.slice(0, 4));
+      }
 
-      setTrendingData(trendingBlogs.slice(0, 4));
       setLoading(false);
       setError("");
     } catch (error) {

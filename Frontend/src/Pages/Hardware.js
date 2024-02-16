@@ -14,6 +14,7 @@ const Hardware = () => {
 
   const initialBlogsToShow = 3;
   const [blogsToShow, setBlogsToShow] = useState(initialBlogsToShow);
+  const [error, setError] = useState("");
 
   async function fetchBlogs() {
     try {
@@ -25,13 +26,21 @@ const Hardware = () => {
       });
 
       const data = await response.json();
-
-      const hardwareBlogs = data.blogs.filter(
-        (blog) => blog.category === "Hardware"
-      );
-      setHardwareData(hardwareBlogs);
+      if (data.length > 1) {
+        const hardwareBlogs = data.filter(
+          (blog) => blog.category === "Hardware"
+        );
+        setHardwareData(hardwareBlogs);
+        setError("");
+      } else {
+        const hardwareBlogs = data.blogs.filter(
+          (blog) => blog.category === "Hardware"
+        );
+        setHardwareData(hardwareBlogs);
+        setError("");
+      }
     } catch (error) {
-      console.log(error);
+      setError("something went wrong");
     }
   }
 
@@ -57,6 +66,11 @@ const Hardware = () => {
       </Helmet>
       <Header onSearch={handleSearch} />
       <div className="App">
+        {error && (
+          <div>
+            <h5 className="text-center text-red-400">{error}</h5>{" "}
+          </div>
+        )}
         {searchQuery && <SearchResults searchQuery={searchQuery} />}
         {!searchQuery && (
           <>

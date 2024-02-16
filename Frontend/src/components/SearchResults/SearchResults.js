@@ -51,7 +51,11 @@ function SearchResults({ searchQuery }) {
           `/blogs/myblogs/results/search?q=${searchQuery}`
         );
         const data = await response.json();
-        setResults(data.blogs);
+        if (data.length > 1) {
+          setResults(data);
+        } else {
+          setResults(data.blogs);
+        }
         setLoading(false);
         setError("");
       };

@@ -21,7 +21,13 @@ function BlogTemplate() {
           },
         });
         const data = await response.json();
-        setBlogData(data.blog);
+
+        if (data.title) {
+          setBlogData(data);
+        } else {
+          setBlogData(data.blog);
+        }
+
         setLoading(false);
         setError("");
       } catch (error) {
@@ -36,7 +42,7 @@ function BlogTemplate() {
 
   return (
     <>
-    <Helmet>
+      <Helmet>
         <title>{`${blogData.category} | ${title}`}</title>
         <meta name="description" content="your favourite tech news platform" />
       </Helmet>

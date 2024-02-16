@@ -1,5 +1,17 @@
 const Blog = require("../models/Blog");
+require("dotenv").config();
 const { StatusCodes } = require("http-status-codes");
+const { createClient } = require("redis");
+
+const redisClient = createClient({
+  password: process.env.REDIS_SECRET,
+  socket: {
+    host: "redis-19851.c135.eu-central-1-1.ec2.cloud.redislabs.com",
+    port: 19851,
+  },
+}).on("error", (err) => console.error("Redis Client Error", err));
+redisClient.connect();
+
 const {
   BadRequestError,
 
@@ -8,29 +20,39 @@ const {
 
 const AddBlog = async (req, res) => {
   const blog = await Blog.create(req.body);
+  await redisClient.del("blogs");
   res.status(StatusCodes.CREATED).json({ blog });
 };
 const ShowBlogs = async (req, res) => {
-  const blogs = await Blog.find();
-  res.status(StatusCodes.OK).json({ blogs });
+  const blogsCacheKey = "blogs";
+  const cachedBlogs = await redisClient.get(blogsCacheKey);
+
+  if (cachedBlogs) {
+    return res.status(StatusCodes.OK).json(JSON.parse(cachedBlogs)); // cached
+  } else {
+    const blogs = await Blog.find();
+
+    await redisClient.set(blogsCacheKey, JSON.stringify(blogs));
+    res.status(StatusCodes.OK).json({ blogs }); //not cached
+  }
 };
 const showResult = async (req, res) => {
-  try {
-    const { query } = req;
-    let filter = {};
+  const filteredBlogsCacheKey = "filteredBlogs";
+  const filteredCachedBlogs = await redisClient.get(filteredBlogsCacheKey);
 
-    if (query.q) {
-      filter = { title: { $regex: query.q, $options: "i" } };
-    }
+  const { query } = req;
+  let filter = {};
 
+  if (query.q) {
+    filter = { title: { $regex: query.q, $options: "i" } };
+  }
+  if (filteredCachedBlogs) {
+    return res.status(StatusCodes.OK).json(JSON.parse(filteredCachedBlogs));
+  } else {
     const blogs = await Blog.find(filter);
 
+    await redisClient.set(filteredBlogsCacheKey, JSON.stringify(blogs));
     res.status(StatusCodes.OK).json({ blogs });
-  } catch (error) {
-    console.error("Error fetching blogs:", error);
-    res
-      .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .json({ error: "Internal server error" });
   }
 };
 
@@ -50,32 +72,48 @@ const UpdateBlog = async (req, res) => {
   if (!blog) {
     throw new NotFoundError(`No blog with id ${blog}`);
   }
+  await redisClient.del("blogs");
   res.status(StatusCodes.OK).json({ blog });
 };
 const GetBlog = async (req, res) => {
   const {
     params: { id: blogID },
   } = req;
-  const blog = await Blog.findOne({ _id: blogID });
-  if (!blog) {
-    throw new NotFoundError(`No blog with id ${blogID}`);
+  const cachedBlogKey = `blog:${blogID}`;
+  const cachedBlog = await redisClient.get(cachedBlogKey);
+  if (cachedBlog) {
+    return res.status(StatusCodes.OK).json(JSON.parse(cachedBlog));
+  } else {
+    const blog = await Blog.findOne({ _id: blogID });
+    if (!blog) {
+      throw new NotFoundError(`No blog with id ${blogID}`);
+    }
+    await redisClient.set(cachedBlogKey, JSON.stringify(blog));
+    res.status(StatusCodes.OK).json({ blog });
   }
-  res.status(StatusCodes.OK).json({ blog });
 };
 const GetBlogByTitle = async (req, res) => {
   const {
     params: { title: blogTitle },
   } = req;
-  const blog = await Blog.findOneAndUpdate(
-    { title: blogTitle },
-    { $inc: { pageViews: 1 } },
-    { new: true }
-  );
 
-  if (!blog) {
-    throw new NotFoundError(`No blog with title ${blogTitle}`);
+  const cachedBlogKey = `blog:${blogTitle}`;
+  const cachedBlog = await redisClient.get(cachedBlogKey);
+  if (cachedBlog) {
+    return res.status(StatusCodes.OK).json(JSON.parse(cachedBlog));
+  } else {
+    const blog = await Blog.findOneAndUpdate(
+      { title: blogTitle },
+      { $inc: { pageViews: 1 } },
+      { new: true }
+    );
+
+    if (!blog) {
+      throw new NotFoundError(`No blog with title ${blogTitle}`);
+    }
+    await redisClient.set(cachedBlogKey, JSON.stringify(blog));
+    res.status(StatusCodes.OK).json({ blog });
   }
-  res.status(StatusCodes.OK).json({ blog });
 };
 const DeleteBlog = async (req, res) => {
   const {
@@ -85,6 +123,7 @@ const DeleteBlog = async (req, res) => {
   if (!blog) {
     throw new NotFoundError(`No blog with id ${blogID}`);
   }
+  await redisClient.del("blogs");
   res.status(StatusCodes.OK).json({ blog });
 };
 

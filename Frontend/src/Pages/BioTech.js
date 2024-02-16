@@ -13,6 +13,7 @@ const BioTech = () => {
   const [bioTechData, setBioTechData] = useState([]);
   const initialBlogsToShow = 3;
   const [blogsToShow, setBlogsToShow] = useState(initialBlogsToShow);
+  const [error, setError] = useState("");
 
   async function fetchBlogs() {
     try {
@@ -24,13 +25,19 @@ const BioTech = () => {
       });
 
       const data = await response.json();
-
-      const BioTechBlogs = data.blogs.filter(
-        (blog) => blog.category === "BioTech"
-      );
-      setBioTechData(BioTechBlogs);
+      if (data.length > 1) {
+        const BioTechBlogs = data.filter((blog) => blog.category === "BioTech");
+        setBioTechData(BioTechBlogs);
+        setError("");
+      } else {
+        const BioTechBlogs = data.blogs.filter(
+          (blog) => blog.category === "BioTech"
+        );
+        setBioTechData(BioTechBlogs);
+        setError("");
+      }
     } catch (error) {
-      console.log(error);
+      setError("something went wrong");
     }
   }
 
@@ -55,6 +62,11 @@ const BioTech = () => {
       </Helmet>
       <Header onSearch={handleSearch} />
       <div className="App">
+        {error && (
+          <div>
+            <h5 className="text-center text-red-400">{error}</h5>{" "}
+          </div>
+        )}
         {searchQuery && <SearchResults searchQuery={searchQuery} />}
         {!searchQuery && (
           <>

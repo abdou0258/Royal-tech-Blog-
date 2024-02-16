@@ -55,11 +55,18 @@ function Top() {
       });
 
       const data = await response.json();
+      if (data.length > 1) {
+        const topBlogs = data
+          .filter((blog) => blog.type === "top")
+          .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        setTopData(topBlogs.slice(0, 3));
+      } else {
+        const topBlogs = data.blogs
+          .filter((blog) => blog.type === "top")
+          .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        setTopData(topBlogs.slice(0, 3));
+      }
 
-      const topBlogs = data.blogs
-        .filter((blog) => blog.type === "top")
-        .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-      setTopData(topBlogs.slice(0, 3));
       setLoading(false);
       setError("");
     } catch (error) {

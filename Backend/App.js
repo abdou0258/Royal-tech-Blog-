@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+
 const isAuth = require("./middleware/isAuth");
 const adminRouter = require("./routes/admin");
 const blogsRouter = require("./routes/blogs");

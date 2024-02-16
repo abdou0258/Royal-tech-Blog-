@@ -12,6 +12,7 @@ import SearchResults from "../components/SearchResults/SearchResults";
 const Software = () => {
   const [softwareData, setSoftwareData] = useState([]);
   const initialBlogsToShow = 3;
+  const [error, setError] = useState("");
   const [blogsToShow, setBlogsToShow] = useState(initialBlogsToShow);
 
   async function fetchBlogs() {
@@ -24,11 +25,20 @@ const Software = () => {
       });
 
       const data = await response.json();
-      
-      const softwareBlogs = data.blogs.filter(
-        (blog) => blog.category === "Software"
-      );
-      setSoftwareData(softwareBlogs);
+      if (data.length > 1) {
+        const softwareBlogs = data.filter(
+          (blog) => blog.category === "Software"
+        );
+        setSoftwareData(softwareBlogs);
+        setError("");
+      } else {
+        const softwareBlogs = data.blogs.filter(
+          (blog) => blog.category === "Software"
+        );
+
+        setSoftwareData(softwareBlogs);
+        setError("something went wrong");
+      }
     } catch (error) {
       console.log(error);
     }
@@ -39,7 +49,6 @@ const Software = () => {
   }, []);
 
   const handleLoadMore = () => {
-   
     setBlogsToShow((prevCount) => prevCount + initialBlogsToShow);
   };
 
@@ -57,6 +66,11 @@ const Software = () => {
       </Helmet>
       <Header onSearch={handleSearch} />
       <div className="App">
+        {error && (
+          <div>
+            <h5 className="text-center text-red-400">{error}</h5>{" "}
+          </div>
+        )}
         {searchQuery && <SearchResults searchQuery={searchQuery} />}
         {!searchQuery && (
           <>

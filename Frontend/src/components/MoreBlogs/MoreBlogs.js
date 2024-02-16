@@ -53,10 +53,18 @@ function MoreBlogs() {
       });
 
       const data = await response.json();
-      const moreBlogs = data.blogs.sort(
-        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-      );
-      setBlogs(moreBlogs);
+
+      if (data.length > 1) {
+        const moreBlogs = data.sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+        );
+        setBlogs(moreBlogs);
+      } else {
+        const moreBlogs = data.blogs.sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+        );
+        setBlogs(moreBlogs);
+      }
       setLoading(false);
       setError("");
     } catch (error) {

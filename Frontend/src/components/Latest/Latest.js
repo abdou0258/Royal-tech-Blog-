@@ -61,11 +61,19 @@ function Latest() {
       });
 
       const data = await response.json();
-      const sortedData = data.blogs.sort(
-        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-      );
 
-      setLatestData(sortedData);
+      if (data.length > 1) {
+        const sortedData = data.sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+        );
+        setLatestData(sortedData);
+      } else {
+        const sortedData = data.blogs.sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+        );
+        setLatestData(sortedData);
+      }
+
       setLoading(false);
       setError("");
     } catch (error) {

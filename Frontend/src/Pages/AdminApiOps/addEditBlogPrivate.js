@@ -1,4 +1,4 @@
-export async function check(action,navigate) {
+export async function check(action,navigate,setError) {
     try {
         const response = await fetch(`/admin/blogs/${action}blog`, {
           method: 'GET',
@@ -11,9 +11,8 @@ export async function check(action,navigate) {
         if (response.status ===401) {
           navigate('/admin')
         }
-      
       } catch (error) {
-        console.error('unauthorized', error);
+        setError('something went wrong')
       }
   }
   

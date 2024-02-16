@@ -58,11 +58,18 @@ function Featured({ category }) {
       });
 
       const data = await response.json();
+      if (data.length > 1) {
+        const featuredBlogs = data.filter(
+          (blog) => blog.type === "featured" && blog.category === category
+        );
+        setFeaturedData(featuredBlogs);
+      } else {
+        const featuredBlogs = data.blogs.filter(
+          (blog) => blog.type === "featured" && blog.category === category
+        );
+        setFeaturedData(featuredBlogs);
+      }
 
-      const featuredBlogs = data.blogs.filter(
-        (blog) => blog.type === "featured" && blog.category === category
-      );
-      setFeaturedData(featuredBlogs);
       setLoading(false);
       setError("");
     } catch (error) {
