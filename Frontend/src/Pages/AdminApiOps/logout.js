@@ -1,6 +1,6 @@
 export async function Logout(navigate, setError) {
     try {
-      const response = await fetch('/admin/logout', {
+      const response = await fetch('https://royal-tech-blog.onrender.com/admin/logout', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -48,7 +48,7 @@ function SearchResults({ searchQuery }) {
     if (searchQuery) {
       const fetchResults = async () => {
         const response = await fetch(
-          `/blogs/myblogs/results/search?q=${searchQuery}`
+          `https://royal-tech-blog.onrender.com/blogs/myblogs/results/search?q=${searchQuery}`
         );
         const data = await response.json();
         if (data.length > 1) {

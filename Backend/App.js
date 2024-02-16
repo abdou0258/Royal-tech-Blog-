@@ -42,6 +42,9 @@ app.use("/admin", adminRouter);
 app.use("/admin/blogs", isAuth);
 app.use("/subscribers", subscribersRoute);
 app.use("/blogs/myblogs", blogsRouter);
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+});
 
 //errors
 app.use(notFoundMiddleware);

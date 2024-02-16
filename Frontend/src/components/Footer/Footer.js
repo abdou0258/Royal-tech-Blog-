@@ -52,7 +52,12 @@ function Footer() {
           <div className="info flex flex-col justify-center items-center m-10">
             <p>abdouhdd16@gmail.com</p>
             <p>algiers,algeria</p>
+            <Link to ="/admin">
+
+            <p className="text-bold underline">Admin</p>
+            </Link>
           </div>
+         
         </div>
       </div>
     </section>

@@ -33,7 +33,7 @@ function Login() {
     }
 
     try {
-      const response = await fetch("/admin/login", {
+      const response = await fetch("https://royal-tech-blog.onrender.com/admin/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

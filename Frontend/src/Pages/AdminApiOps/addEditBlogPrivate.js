@@ -1,6 +1,6 @@
 export async function check(action,navigate,setError) {
     try {
-        const response = await fetch(`/admin/blogs/${action}blog`, {
+        const response = await fetch(`https://royal-tech-blog.onrender.com/admin/blogs/${action}blog`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

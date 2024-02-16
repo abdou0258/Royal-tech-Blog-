@@ -2,7 +2,7 @@ export async function updateBlog(id,navigate, setError,title, category, type, pa
 
         try {
           
-          const response = await fetch(`/blogs/myblogs/${id}`, {
+          const response = await fetch(`https://royal-tech-blog.onrender.com/blogs/myblogs/${id}`, {
             method: "PATCH",
             headers: {
               "Content-Type": "application/json",

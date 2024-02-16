@@ -50,7 +50,7 @@ function Featured({ category }) {
 
   async function fetchFeatured() {
     try {
-      const response = await fetch("/blogs/myblogs", {
+      const response = await fetch("https://royal-tech-blog.onrender.com/blogs/myblogs", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

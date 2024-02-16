@@ -14,7 +14,7 @@ function BlogTemplate() {
     async function fetchBlogData() {
       try {
         const encodedTitle = encodeURIComponent(title);
-        const response = await fetch(`/blogs/myblogs/title/${encodedTitle}`, {
+        const response = await fetch(`https://royal-tech-blog.onrender.com/blogs/myblogs/title/${encodedTitle}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

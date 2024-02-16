@@ -1,6 +1,6 @@
 export async function deleteBlog(blogId, setBlogs, setError) {
     try {
-      const response = await fetch(`/blogs/myblogs/${blogId}`, {
+      const response = await fetch(`https://royal-tech-blog.onrender.com/blogs/myblogs/${blogId}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

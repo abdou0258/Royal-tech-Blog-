@@ -8,7 +8,7 @@ export async function getBlog(
   setError
 ) {
   try {
-    const response = await fetch(`/blogs/myblogs/${id}`, {
+    const response = await fetch(`https://royal-tech-blog.onrender.com/blogs/myblogs/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

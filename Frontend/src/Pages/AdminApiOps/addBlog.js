@@ -1,6 +1,6 @@
 export async function addBlog(navigate, setError,title, category, type, paragraph,image) {
     try {
-        const response = await fetch("/blogs/myblogs", {
+        const response = await fetch("https://royal-tech-blog.onrender.com/blogs/myblogs", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
