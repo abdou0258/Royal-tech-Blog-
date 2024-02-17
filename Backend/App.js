@@ -39,7 +39,7 @@ app.use(
 //routes
 
 app.use("/admin", adminRouter);
-app.use("isAuthorized", isAuth);
+app.use("/isAuthorizedisAuthorized", isAuth);
 app.use("/subscribers", subscribersRoute);
 app.use("/blogs/myblogs", blogsRouter);
 
