@@ -1,7 +1,7 @@
 const Blog = require("../models/Blog");
 require("dotenv").config();
 const { StatusCodes } = require("http-status-codes");
-const redisClient = require("./database/redisConfig");
+const redisClient = require("../database/redisConfig");
 const {
   BadRequestError,
 
